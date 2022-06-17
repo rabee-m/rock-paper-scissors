@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    background-color: #111111ff;
+    color: white;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scoreboard {
+    border: 5px solid;
+    display: flex;
+    width: 200px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 10%;
+    border-color: #2f71e8ff;
+}
+
+.player-box {
+    border-right: 5px solid;
+
+}
+
+.player-box, .cpu-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 5px;
+}
