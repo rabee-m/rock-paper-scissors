@@ -44,6 +44,10 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
+    const rockBtn = document.querySelector('button.rock')
+    const paperBtn = document.querySelector('button.paper')
+    const scissorsBtn = document.querySelector('button.scissors')
+
     //Play 5 round game of Rock Paper Scissors
     let playerScore = 0;
     let computerScore = 0;
