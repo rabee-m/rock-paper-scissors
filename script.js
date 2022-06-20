@@ -1,7 +1,3 @@
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
 function computerPlay() {
     let choices = ['rock', 'paper', 'scissors'];
     compChoice = choices[Math.floor(Math.random() * choices.length)];
@@ -24,49 +20,69 @@ function getRoundResult(playerSelection, computerSelction) {
             if (computerSelction == 'scissors') return 'tie';
     }
 }
+function updateDisplay(playerSelection, computerSelection) {
+    if (playerSelection == 'rock') {
+        document.getElementById('player-move-icon').src = 'images/rock_icon.png';
+    } else if (playerSelection == 'paper') {
+        document.getElementById('player-move-icon').src = 'images/paper_icon.png';
+    } else {
+        document.getElementById('player-move-icon').src = 'images/scissors_icon.png';
+    }
+    if (computerSelection == 'rock') {
+        document.getElementById('cpu-move-icon').src = 'images/rock_icon.png';
+    } else if (computerSelection == 'paper') {
+        document.getElementById('cpu-move-icon').src = 'images/paper_icon.png';
+    } else {
+        document.getElementById('cpu-move-icon').src = 'images/scissors_icon.png';
+    }
+}
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase(); //make playerSelection case insensitive
+function playRound(playerSelection, computerSelection, playerScoreDisplay, cpuScoreDisplay) {
     let roundResult = getRoundResult(playerSelection, computerSelection);
 
-    //For formatting purposes, capitalize first letter of strings
-    formattedRoundResult = capitalizeFirstLetter(roundResult);
-    formattedPlayerSelection = capitalizeFirstLetter(playerSelection);
-    formattedComputerSelection = capitalizeFirstLetter(computerSelection);
+    console.log(roundResult)
+    //Switch icons on game display
+    updateDisplay(playerSelection, computerSelection);
 
-    if (formattedRoundResult == 'Win') {
-        return `You ${formattedRoundResult}! ${formattedPlayerSelection} beats ${formattedComputerSelection}.`;
-    } else if (formattedRoundResult == 'Lose') {
-        return `You ${formattedRoundResult}! ${formattedComputerSelection} beats ${formattedPlayerSelection}.`;
-    } else {
-        return `No one wins, it's a ${formattedRoundResult}! You both chose ${formattedPlayerSelection}.`
+    if (roundResult == 'win') {
+        playerScoreDisplay.textContent++;
+    } else if (roundResult == 'lose') {
+        cpuScoreDisplay.textContent++;
+    }
+    checkWin(playerScoreDisplay, cpuScoreDisplay);
+}
+
+function restartGame(playerScoreDisplay, cpuScoreDisplay) {
+    //restart the game
+    playerScoreDisplay.textContent = 0;
+    cpuScoreDisplay.textContent = 0;
+}
+
+function checkWin(playerScoreDisplay, cpuScoreDisplay) {
+    if (playerScoreDisplay.textContent == 3) {
+        alert("You Won against the CPU!");
+        restartGame(playerScoreDisplay, cpuScoreDisplay);
+    } else if (cpuScoreDisplay.textContent== 3) {
+        alert ("You Lost against the CPU!");
+        restartGame(playerScoreDisplay, cpuScoreDisplay);
     }
 }
 
-function game() {
-    const rockBtn = document.querySelector('button.rock')
-    const paperBtn = document.querySelector('button.paper')
-    const scissorsBtn = document.querySelector('button.scissors')
+const rockBtn = document.querySelector('button#rock');
+const paperBtn = document.querySelector('button#paper');
+const scissorsBtn = document.querySelector('button#scissors');
+const playerScoreDisplay = document.querySelector('.player-score');
+const cpuScoreDisplay = document.querySelector('.cpu-score');
+const gameDisplay = document.querySelector('game-display');
 
-    //Play 5 round game of Rock Paper Scissors
-    let playerScore = 0;
-    let computerScore = 0;
-    while(playerScore < 3 && computerScore < 3) {
-        //get choices
-        let playerSelection = prompt('Enter your choice:');
-        let computerSelection = computerPlay();
+rockBtn.addEventListener('click', () => {
+    playRound('rock', computerPlay(), playerScoreDisplay, cpuScoreDisplay)
+});
 
-        //update scores
-        let roundResult = getRoundResult(playerSelection, computerSelection);
-        if (roundResult == 'win') playerScore++;
-        if (roundResult == 'lose') computerScore++;
+paperBtn.addEventListener('click', () => {
+    playRound('paper', computerPlay(), playerScoreDisplay, cpuScoreDisplay)
+});
 
-        //output to console
-        console.log(playRound(playerSelection, computerSelection));
-        console.log(`Player: ${playerScore}, CPU: ${computerScore}`)
-    }
-    playerScore > computerScore ? alert('You won against the CPU :)') : alert('You lost against the CPU :(')
-}
-
-//run the game
-game()
+scissorsBtn.addEventListener('click', () => {
+    playRound('paper', computerPlay(), playerScoreDisplay, cpuScoreDisplay)
+});
