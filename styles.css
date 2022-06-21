@@ -11,11 +11,12 @@ body {
     font-family: 'Roboto', sans-serif;
     padding: 0;
     margin: 0;
+    font-size: 25px;
 }
 
 img {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
     background-color: #111111ff;
 }
 
@@ -26,9 +27,9 @@ img {
 }
 
 .scoreboard {
-    border: 5px solid;
+    border: 10px solid;
     display: flex;
-    width: 200px;
+    width: 400px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -40,7 +41,7 @@ img {
 }
 
 .player-box {
-    border-right: 5px solid;
+    border-right: 10px solid;
 
 }
 
